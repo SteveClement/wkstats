@@ -38,7 +38,7 @@ def apiKeyNotFound(file):
     print "API key not found. Please enter your WaniKani api key in the file " + file
     exit()
 
-    
+
 ## WaniKani interaction ##
 
 def processWaniKaniResponse(data):
@@ -58,7 +58,7 @@ def readFromWaniKani():
     j = json.loads(urllib2.urlopen(url).read())
     return processWaniKaniResponse(j)
 
-    
+
 ## Data handling ##
 
 def oneCell(new, old):
@@ -101,7 +101,7 @@ def getBurnedCount(data, what):
 def getTotalCount(data, what):
     return data["requested_information"]["apprentice"][what] + data["requested_information"]["guru"][what] + data["requested_information"]["master"][what] + data["requested_information"]["enlighten"][what] + getBurnedCount(data, what)
 
-    
+
 ## File handling ##
 
 def storeData(data):
@@ -165,7 +165,7 @@ def writePlotData():
             f.write(data["date_saved"] + " " + str(rburn) + " " + str(rtot) + " " + str(kburn) + " " + str(ktot) + " " + str(vburn) + " " + str(vtot) + " " + str(level) + "\n")
     return True
 
-    
+
 ## Graph plotting ##
 
 def plotGraph():
