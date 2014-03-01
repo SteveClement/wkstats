@@ -138,7 +138,7 @@ def printResultToFile(result):
         print "Reddit table with latest data written to: " + resultFile
 
 # returns true if plot data was successfully written to file
-def writePlotData():
+def writePlotData(thisTime):
     if os.path.isfile(storedDataFile) is False:
         print "Warning: No previously stored data found, unable to plot a graph."
         return False
@@ -146,6 +146,10 @@ def writePlotData():
     weeks = []
     with open(storedDataFile, "r") as f:
         weeks = f.readlines()
+
+    if thisTime is not None:
+        # thisTime is None if the result was stored to file
+        weeks.append(thisTime)
 
     if len(weeks) == 1:
         print "Warning: Only one stored entry found, unable to plot a graph."
@@ -176,8 +180,8 @@ def plotGraph():
 def deletePlotData():
     os.remove(plotDataFile)
 
-def makeGraph():
-    if writePlotData() is True:
+def makeGraph(thisTime):
+    if writePlotData(thisTime) is True:
         plotGraph()
         deletePlotData()
 
@@ -204,12 +208,15 @@ def wkstats():
     if lastTime is None:
         lastTime = thisTime
 
+    thisTimeString = None
     if shouldSave:
         storeData(thisTime)
+    else:
+        thisTimeString = json.dumps(thisTime)
 
     result = getResult(thisTime, lastTime)
     printResultToFile(result)
-    makeGraph()
+    makeGraph(thisTimeString)
 
 
 if __name__ == "__main__":
