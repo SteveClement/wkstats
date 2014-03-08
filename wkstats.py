@@ -120,6 +120,7 @@ def storeData(data):
 
         json.dump(data, f, sort_keys = True)
         f.write("\n")
+    print "Latest data saved to: " + storedDataFile
 
 def getLastEntry():
     if os.path.isfile(storedDataFile) is False:
