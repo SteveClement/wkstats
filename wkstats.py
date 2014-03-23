@@ -47,7 +47,7 @@ def processWaniKaniResponse(data):
         exit()
 
     ret = {}
-    ret["date_saved"] = time.strftime("%Y-%m-%d")
+    ret["date_saved"] = today()
     ret["level"] = data["user_information"]["level"]
     ret["requested_information"] = data["requested_information"]
     return ret
@@ -127,9 +127,13 @@ def getLastEntry():
         return None
 
     with open(storedDataFile, "r") as f:
-        for line in f:
-            pass
-        return json.loads(line)
+        lines = f.readlines()
+        last = json.loads(lines[-1])
+        if len(lines) > 1:
+            if last["date_saved"] == today():
+                return json.loads(lines[-2])
+        return last
+
 
 # result is a list of lines to write to the file
 def printResultToFile(result):
@@ -187,6 +191,9 @@ def makeGraph(thisTime):
         deletePlotData()
 
 ## Main handling ##
+
+def today():
+    return time.strftime("%Y-%m-%d")
 
 def incorrectArguments(args):
     print "Incorrect usage: " + " ".join(args)
