@@ -6,10 +6,10 @@ set timefmt "%Y-%m-%d"
 set format x "Week %W"
 set xrange ["2014-01-12":"2014-12-31"]
 set xtics rotate font "Tahoma, 10"
-set y2tics 400 font "Tahoma"
+set y2tics 500 font "Tahoma"
 set ytics nomirror font "Tahoma"
-set y2range [0:4000]
-set yrange [0:50]
+set y2range [0:5300]
+set yrange [0:53]
 set ylabel "Level" font "Verdana"
 set grid y2tics xtics
 set key outside below font "Verdana"
