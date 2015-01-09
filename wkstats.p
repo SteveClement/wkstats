@@ -1,11 +1,14 @@
 unset log
 unset label
-set title "WaniKani progress 2014" font "Verdana, 14"
+set title "WaniKani progress 2014 - 2015" font "Verdana, 14"
 set xdata time
 set timefmt "%Y-%m-%d"
 set format x "Week %W"
-set xrange ["2014-01-12":"2014-12-31"]
+set xrange ["2014-01-12":"2015-12-31"]
 set xtics rotate font "Tahoma, 10"
+set xtics "2014-01-12", 2419200, "2015-12-31"
+set xtics add ("2014 Week 2" "2014-01-12")
+set xtics add ("2015 Week 1" "2015-01-01")
 set y2tics 500 font "Tahoma"
 set ytics nomirror font "Tahoma"
 set y2range [0:5300]
@@ -13,7 +16,7 @@ set yrange [0:53]
 set ylabel "Level" font "Verdana"
 set grid y2tics xtics
 set key outside below font "Verdana"
-set terminal pngcairo dashed size 1000, 700
+set terminal pngcairo dashed size 1500, 700
 set output "wk_progress.png"
 
 plot \
