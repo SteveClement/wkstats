@@ -1,16 +1,17 @@
 unset log
 unset label
-set title "WaniKani progress 2014 - 2016" font "Verdana, 15"
+set title "WaniKani progress 2014 - 2017" font "Verdana, 15"
 set xdata time
 set timefmt "%Y-%m-%d"
 set format x "Week %W"
-set xrange ["2014-01-12":"2016-12-31"]
+set xrange ["2014-01-12":"2017-12-31"]
 set xtics rotate font "Tahoma, 11"
-set xtics "2014-01-12", 2419200, "2016-12-31"
+set xtics "2014-01-12", 2419200, "2017-12-31"
 set xtics add ("2014 Week 2" "2014-01-12")
 set xtics add ("2015 Week 1" "2015-01-01")
 set xtics add ("2016 Week 1" "2016-01-01")
-set xtics add ("2017 Week 1" "2016-12-31")
+set xtics add ("2017 Week 1" "2017-01-01")
+set xtics add ("2018 Week 1" "2017-12-31")
 
 set y2tics 500 font "Tahoma"
 set ytics nomirror font "Tahoma"
