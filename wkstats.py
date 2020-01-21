@@ -3,7 +3,7 @@ import os.path
 import subprocess
 import sys
 import time
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 ## Generated files ##
 
@@ -27,15 +27,13 @@ def getApiKey():
                 continue
             return line.strip()
 
-    apiKeyNotFound(apiKeyFile)
-
 def createApiFile(file):
     with open(file, "w") as f:
         f.write("# Please paste your WaniKani API key on the line below, you\n")
         f.write("# can find it on the account setings page on WaniKani.\n")
 
 def apiKeyNotFound(file):
-    print "API key not found. Please enter your WaniKani api key in the file " + file
+    print("API key not found. Please enter your WaniKani api key in the file " + file)
     exit()
 
 
@@ -43,7 +41,7 @@ def apiKeyNotFound(file):
 
 def processWaniKaniResponse(data):
     if "error" in data:
-        print "WaniKani returned an error: " + data["error"]["message"]
+        print("WaniKani returned an error: " + data["error"]["message"])
         exit()
 
     ret = {}
@@ -54,8 +52,8 @@ def processWaniKaniResponse(data):
 
 def readFromWaniKani():
     api_key = getApiKey()
-    url = "https://www.wanikani.com/api/user/" + api_key + "/srs-distribution"
-    j = json.loads(urllib2.urlopen(url).read())
+    url = "https://www.wanikani.com/api/user/" + str(api_key) + "/srs-distribution"
+    j = json.loads(urllib.request.urlopen(url).read())
     return processWaniKaniResponse(j)
 
 
@@ -120,7 +118,7 @@ def storeData(data):
 
         json.dump(data, f, sort_keys = True)
         f.write("\n")
-    print "Latest data saved to: " + storedDataFile
+    print("Latest data saved to: " + storedDataFile)
 
 def getLastEntry():
     if os.path.isfile(storedDataFile) is False:
@@ -140,12 +138,12 @@ def printResultToFile(result):
     with open(resultFile, "w") as f:
         output = "\n".join(result)
         f.write(output)
-        print "Reddit table with latest data written to: " + resultFile
+        print("Reddit table with latest data written to: " + resultFile)
 
 # returns true if plot data was successfully written to file
 def writePlotData(thisTime):
     if os.path.isfile(storedDataFile) is False:
-        print "Warning: No previously stored data found, unable to plot a graph."
+        print("Warning: No previously stored data found, unable to plot a graph.")
         return False
 
     weeks = []
@@ -157,7 +155,7 @@ def writePlotData(thisTime):
         weeks.append(thisTime)
 
     if len(weeks) == 1:
-        print "Warning: Only one stored entry found, unable to plot a graph."
+        print("Warning: Only one stored entry found, unable to plot a graph.")
         return False
 
     with open(plotDataFile, "w") as f:
@@ -180,7 +178,7 @@ def writePlotData(thisTime):
 def plotGraph():
     command = "gnuplot wkstats.p"
     subprocess.call(command.split())
-    print "Graph of WaniKani progress written to: " + graphFile
+    print("Graph of WaniKani progress written to: " + graphFile)
 
 def deletePlotData():
     os.remove(plotDataFile)
@@ -196,11 +194,11 @@ def today():
     return time.strftime("%Y-%m-%d")
 
 def incorrectArguments(args):
-    print "Incorrect usage: " + " ".join(args)
-    print "Supported options:"
-    print " --save: Saves the data read from WaniKani to file. If the last entry"
-    print "         in the file is from today it will be replaced with the new"
-    print "         data from WaniKani."
+    print("Incorrect usage: " + " ".join(args))
+    print("Supported options:")
+    print(" --save: Saves the data read from WaniKani to file. If the last entry")
+    print("         in the file is from today it will be replaced with the new")
+    print("         data from WaniKani.")
 
 
 def wkstats():
